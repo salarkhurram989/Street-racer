@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#080a0d">
 <title>STREET RACER — SALARX RACING</title>
 <style>
-:root{--bg:#07090c;--panel:#10151b;--line:#2b3540;--text:#f4f6f8;--muted:#9ca8b4;--yellow:#ffd21c}
+:root{--bg:#07090c;--panel:#10151b;--line:#2b3540;--text:#f4f6f8;--muted:#9ca8b4;--yellow:#ffd21c}body.day-mode{--bg:#e8edf2;--panel:#f7f9fb;--line:#b8c2cc;--text:#111820;--muted:#53616d}body.day-mode #home{background:linear-gradient(180deg,#b9d4e6,#edf2f5 65%,#d8e0e5)}body.day-mode .hero h1 span{color:#53616d}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#050608;color:var(--text);font-family:Inter,Segoe UI,Arial,sans-serif;touch-action:none}button{font:inherit}
 #app,.screen{position:fixed;inset:0}.screen{display:none}.screen.active{display:block}
 #home{background:linear-gradient(180deg,#101820,#07090d 65%,#050608)}.top{position:absolute;top:0;left:0;right:0;padding:18px 22px;display:flex;justify-content:space-between;z-index:5}.brand{font-weight:950;letter-spacing:4px}.brand small{display:block;color:var(--muted);font-size:10px;letter-spacing:3px;margin-top:4px}.coins{background:#ffd21c;color:#111;border-radius:999px;padding:8px 13px;font-weight:900}
@@ -36,12 +36,12 @@
 const $=id=>document.getElementById(id);
 const CARS=[{id:'starter',name:'Starter',price:0,req:1,top:155,acc:58,handling:62},{id:'gt',name:'Street GT',price:900,req:2,top:185,acc:72,handling:68},{id:'super',name:'Supercar',price:2200,req:4,top:215,acc:84,handling:76},{id:'hyper',name:'Hypercar',price:4200,req:7,top:245,acc:94,handling:86},{id:'jdm',name:'JDM',price:2600,req:4,top:210,acc:78,handling:92}];
 const MODES=[['endless','Endless Race','Drive as far as possible.'],['time','Time Trial','Survive for 60 seconds.'],['traffic','Traffic Challenge','Dodge 25 cars.'],['speed','Speed Challenge','Reach 200 KM/H.'],['distance','Distance Challenge','Reach 5,000m.']];
-const defaultSave={coins:500,owned:['starter'],selected:'starter',level:1,xp:0,best:0,bestDist:0,distance:0,sound:true,maxSpeed:0,dodges:0,nitro:0};
+const defaultSave={coins:500,owned:['starter'],selected:'starter',level:1,xp:0,best:0,bestDist:0,distance:0,sound:true,maxSpeed:0,dodges:0,nitro:0,dayMode:false};
 let save=load(),mode='endless',running=false,paused=false,raf=0,last=0,score=0,dist=0,speed=0,lane=1,nitro=100,traffic=[],coinsRoad=[],spawn=.5,coinSpawn=1,scroll=0,timeLeft=60,keys={left:false,right:false,brake:false,nitro:false};
 const canvas=$('gameCanvas'),ctx=canvas.getContext('2d');
 function load(){try{return Object.assign({},defaultSave,JSON.parse(localStorage.getItem('street-racer-save')||'{}'))}catch(e){return {...defaultSave}}}
 function saveIt(){localStorage.setItem('street-racer-save',JSON.stringify(save));updateHome()}
-function updateHome(){$('coins').textContent=save.coins;$('raceCoins').textContent=save.coins;$('level').textContent=save.level;$('xp').textContent=save.xp+'/'+(500+(save.level-1)*250);$('best').textContent=save.best;$('bestDist').textContent=Math.floor(save.bestDist)+'m';$('high').textContent=save.best}
+function updateHome(){$('coins').textContent=save.coins;$('dayBtn').textContent=save.dayMode?'NIGHT':'DAY';document.body.classList.toggle('day-mode',save.dayMode);$('raceCoins').textContent=save.coins;$('level').textContent=save.level;$('xp').textContent=save.xp+'/'+(500+(save.level-1)*250);$('best').textContent=save.best;$('bestDist').textContent=Math.floor(save.bestDist)+'m';$('high').textContent=save.best}
 function toast(t){const x=document.createElement('div');x.className='toast';x.textContent=t;document.body.appendChild(x);setTimeout(()=>x.remove(),1400)}
 function closePanels(){document.querySelectorAll('.modal').forEach(m=>m.hidden=true)}
 function openPanel(id){closePanels();const m=$(id);if(m){m.hidden=false;if(id==='garage')renderGarage();if(id==='shop')renderShop();if(id==='missions')renderMissions();if(id==='upgrades')renderUpgrades();}}
@@ -65,7 +65,7 @@ $('pauseBtn').addEventListener('click',pauseRace);$('retry').addEventListener('c
 document.querySelectorAll('.ctrl').forEach(b=>{const k=b.dataset.key;const down=e=>{e.preventDefault();keys[k]=true;b.classList.add('on')};const up=e=>{e.preventDefault();keys[k]=false;b.classList.remove('on')};b.addEventListener('pointerdown',down);b.addEventListener('pointerup',up);b.addEventListener('pointercancel',up);b.addEventListener('pointerleave',up)});
 addEventListener('keydown',e=>{const k=e.key.toLowerCase();if(k==='arrowleft'||k==='a')keys.left=true;if(k==='arrowright'||k==='d')keys.right=true;if(k==='arrowdown'||k==='s')keys.brake=true;if(k===' '||k==='n')keys.nitro=true});
 addEventListener('keyup',e=>{const k=e.key.toLowerCase();if(k==='arrowleft'||k==='a')keys.left=false;if(k==='arrowright'||k==='d')keys.right=false;if(k==='arrowdown'||k==='s')keys.brake=false;if(k===' '||k==='n')keys.nitro=false});
-$('soundBtn').addEventListener('click',()=>{save.sound=!save.sound;saveIt();$('soundBtn').textContent=save.sound?'ON':'OFF'});$('dayBtn').addEventListener('click',()=>{$('dayBtn').textContent=$('dayBtn').textContent==='DAY'?'NIGHT':'DAY'});$('resetBtn').addEventListener('click',()=>{if(confirm('Reset STREET RACER progress?')){localStorage.removeItem('street-racer-save');location.reload()}});
+$('soundBtn').addEventListener('click',()=>{save.sound=!save.sound;saveIt();$('soundBtn').textContent=save.sound?'ON':'OFF'});$('dayBtn').addEventListener('click',()=>{save.dayMode=!save.dayMode;saveIt();toast(save.dayMode?'DAY MODE ON':'NIGHT MODE ON')});$('resetBtn').addEventListener('click',()=>{if(confirm('Reset STREET RACER progress?')){localStorage.removeItem('street-racer-save');location.reload()}});
 updateHome();
 </script>
 </body>
