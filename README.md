@@ -68,3 +68,8 @@ The old **SALAR OS** branding is not used by the game.
 ## Author
 
 **Salar** — GitHub: `salarkhurram989`
+
+
+## 3D Drive Mode
+
+Launch the additional Three.js 3D driving experience from the main menu using **3D DRIVE**. It includes a chase camera, procedural sports car, city road, traffic, acceleration, steering, braking, nitro, distance tracking, and a locally saved best distance. The original SALARX racing game, garage, upgrades, missions, and progression remain available from the main menu.
