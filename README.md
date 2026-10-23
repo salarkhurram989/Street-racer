@@ -82,6 +82,6 @@ Launch **ENDLESS 3D** from the SALARX home menu, or open it directly:
 - **[Play Endless 3D Drive](https://salarkhurram989.github.io/Street-racer/endless-drive.html)**
 - [Source file](https://github.com/salarkhurram989/Street-racer/blob/main/endless-drive.html)
 
-This is the separate Car-driving game integrated as its own page. It includes multiple driving modes, traffic and difficulty settings, weather presets, vehicle selection and tuning, nitro/boost, keyboard and touch controls, and browser-local progress. Its save data uses a separate storage key from the original STREET RACER game, so the existing garage and progression remain separate.
+This is the separate Car-driving game integrated as its own page. It includes multiple driving modes, traffic and difficulty settings, weather presets, vehicle selection and tuning, nitro/boost, keyboard and touch controls, and browser-local progress. Cash, level, best distance, owned cars, upgrades, customization, settings and records save automatically on this device. During a drive, the current session is autosaved about every five seconds; if you refresh or reopen the page, you can choose to resume the saved drive. Use **Save progress** in Drive Settings for a manual save. Progress is stored in this browser on this device (not cloud-synced), and uses a separate storage key from the original STREET RACER game, so the existing garage and progression remain separate.
 
 The original STREET RACER remains the main SALARX game, and the existing **3D DRIVE** mode is still available too.
