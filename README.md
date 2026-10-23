@@ -73,3 +73,15 @@ The old **SALAR OS** branding is not used by the game.
 ## 3D Drive Mode
 
 Launch the additional Three.js 3D driving experience from the main menu using **3D DRIVE**. It includes a chase camera, procedural sports car, city road, traffic, acceleration, steering, braking, nitro, distance tracking, and a locally saved best distance. The original SALARX racing game, garage, upgrades, missions, and progression remain available from the main menu.
+
+
+## Additional game: Car-driving — Endless 3D
+
+Launch **ENDLESS 3D** from the SALARX home menu, or open it directly:
+
+- **[Play Endless 3D Drive](https://salarkhurram989.github.io/Street-racer/endless-drive.html)**
+- [Source file](https://github.com/salarkhurram989/Street-racer/blob/main/endless-drive.html)
+
+This is the separate Car-driving game integrated as its own page. It includes multiple driving modes, traffic and difficulty settings, weather presets, vehicle selection and tuning, nitro/boost, keyboard and touch controls, and browser-local progress. Its save data uses a separate storage key from the original STREET RACER game, so the existing garage and progression remain separate.
+
+The original STREET RACER remains the main SALARX game, and the existing **3D DRIVE** mode is still available too.
